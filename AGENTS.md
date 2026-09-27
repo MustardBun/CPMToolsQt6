@@ -1,6 +1,6 @@
 # AGENTS.md
 
-Notes for anyone — human or AI — working on this codebase.
+Notes for anyone working on this codebase.
 
 ## What this is
 
@@ -19,10 +19,11 @@ Current version: **v0.1-preview** (pre-release).
    documentation must not imply one.
 2. **Attribution must stay accurate:**
    - CPMToolsGUI — **neko Java** (the program this is ported from)
-   - cpmtools engine — **Michael Haardt**
+   - cpmtools engine — **Michael Haardt** <michael@moria.de>,
+     primary site <http://www.moria.de/~michael/cpmtools/>
    - Z80-MBC2 disk definitions — **Just4Fun (Fabio Defabis)**
      *(not Marco Maccaferri — that is a common and incorrect attribution)*
-   - Qt 6 port — **Joseph Kwok (@MustardBun)**, developed with AI assistance
+   - Qt 6 port — **Joseph Kwok (@MustardBun)**
 3. **Licence is GPLv3.** Every file under `qt/`, `tools/` and `scripts/` carries
    an `SPDX-License-Identifier: GPL-3.0-or-later` header. The C engine files keep
    their original upstream headers - do not strip them. Do not add code under an

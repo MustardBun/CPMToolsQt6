@@ -95,11 +95,11 @@ CPMToolsQt6 is a derived work:
 
 - **CPMToolsGUI** — **neko Java**, the original program this is ported from,
   including the `diskdefs` format definitions and the MITS Altair 88-DISK support
-- **cpmtools engine** — © **Michael Haardt** (GPL), the portable C library that
-  reads and writes the CP/M filesystem
+- **cpmtools engine** — written by **Michael Haardt** <michael@moria.de>, the
+  portable C library that reads and writes the CP/M filesystem (GPL).
+  Primary site: <http://www.moria.de/~michael/cpmtools/>
 - **Z80-MBC2 disk definitions** — **Just4Fun (Fabio Defabis)**
-- **Qt 6 port** — © 2026 **Joseph Kwok (@MustardBun)**, developed with AI
-  assistance
+- **Qt 6 port** — © 2026 **Joseph Kwok (@MustardBun)**
 
 CP/M is a trademark of Digital Research / DRDOS, Inc. This project is not
 affiliated with or endorsed by any of the parties above.

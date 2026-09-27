@@ -92,10 +92,14 @@ QString AboutDialog::aboutHtml() const
   </tr>
   <tr>
     <td valign="top"><b>cpmtools engine</b><br/>
-        &copy; Michael Haardt</td>
+        written by Michael Haardt<br/>
+        &lt;michael@moria.de&gt;</td>
     <td valign="top">GPL. The portable C library that reads and writes the
         CP/M filesystem: <tt>cpmfs.c</tt>, <tt>cpmcp.c</tt>,
-        <tt>mkfs.cpm.c</tt>, <tt>device_posix.c</tt>.</td>
+        <tt>mkfs.cpm.c</tt>, <tt>device_posix.c</tt>.<br/>
+        Primary site:
+        <a href="http://www.moria.de/~michael/cpmtools/">
+        www.moria.de/~michael/cpmtools</a></td>
   </tr>
   <tr>
     <td valign="top"><b>Z80-MBC2 disk definitions</b><br/>
@@ -108,7 +112,7 @@ QString AboutDialog::aboutHtml() const
     <td valign="top"><b>Qt6 port</b><br/>
         &copy; 2026 Joseph Kwok (@MustardBun)</td>
     <td valign="top">The Qt&nbsp;6 user interface, build system, packaging and
-        internationalisation. <b>Developed with AI assistance.</b></td>
+        internationalisation.</td>
   </tr>
 </table>
 

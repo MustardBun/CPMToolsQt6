@@ -74,8 +74,9 @@ Fixes inherited from the original program:
 ### Attribution
 
 - CPMToolsGUI — neko Java, the original program this is ported from.
-- cpmtools engine — © Michael Haardt (GPL).
+- cpmtools engine — written by Michael Haardt <michael@moria.de> (GPL).
+  Primary site: <http://www.moria.de/~michael/cpmtools/>
 - Z80-MBC2 disk definitions — Just4Fun (Fabio Defabis).
-- Qt 6 port — Joseph Kwok (@MustardBun), developed with AI assistance.
+- Qt 6 port — Joseph Kwok (@MustardBun)
 
 [v0.1-preview]: https://github.com/MustardBun/CPMToolsQt6/releases/tag/v0.1-preview

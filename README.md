@@ -5,7 +5,7 @@ and edit CP/M volumes, including Z80-MBC2 CP/M&nbsp;3 disks.
 
 CPMToolsQt6 is a port of **CPMToolsGUI** by **neko Java**, rebuilt on Qt&nbsp;6
 and reusing the portable C engine from
-[cpmtools](https://github.com/lipro-cpm4l/cpmtools) by Michael Haardt.
+[cpmtools](http://www.moria.de/~michael/cpmtools/) by Michael Haardt.
 
 - **Author of CPMToolsQt6:** Joseph Kwok ([@MustardBun](https://github.com/MustardBun))
 - **Version:** v0.1-preview *(pre-release preview)*
@@ -294,16 +294,18 @@ The harness `cpmcli` drives the same engine entry points as the GUI:
 ## Credits and attribution
 
 This program is a derived work. With thanks to:
+
 - **CPMToolsGUI** by **neko Java** — the original CP/M tools GUI that
   CPMToolsQt6 is ported from, including the `diskdefs` format definitions and
   the MITS Altair 88-DISK support.
-- **cpmtools engine** — © Michael Haardt. The portable C library that reads and
-  writes the CP/M filesystem: `cpmfs.c`, `cpmcp.c`, `mkfs.cpm.c`,
-  `device_posix.c`. Licensed under the GPL.
+- **cpmtools engine** — written by **Michael Haardt** <michael@moria.de>.
+  The portable C library that reads and writes the CP/M filesystem:
+  `cpmfs.c`, `cpmcp.c`, `mkfs.cpm.c`, `device_posix.c`.
+  *Primary site:* <http://www.moria.de/~michael/cpmtools/> — licensed under the GPL.
 - **Z80-MBC2 disk definitions** — **Just4Fun (Fabio Defabis)**. Disk geometries
   for the Z80-MBC2 and Z80-MBC2-CPM3 single-board computers.
-- **Qt6 port** — © 2026 Joseph Kwok (@MustardBun). The Qt 6 user interface,
-  build system, packaging and localisation, **developed with AI assistance**.
+- **Qt 6 port** — © 2026 Joseph Kwok (@MustardBun). The Qt 6 user interface,
+  build system, packaging and localisation.
 
 CP/M is a trademark of Digital Research / DRDOS, Inc. This project is not
 affiliated with or endorsed by any of the parties above.

@@ -64,10 +64,11 @@ code:
   CPMToolsQt6*; there is no implied commitment to maintain it.
 - **Keep attribution accurate:**
   - CPMToolsGUI — **neko Java** (the program this is ported from)
-  - cpmtools engine — **Michael Haardt**
+  - cpmtools engine — **Michael Haardt** <michael@moria.de>,
+    primary site <http://www.moria.de/~michael/cpmtools/>
   - Z80-MBC2 disk definitions — **Just4Fun (Fabio Defabis)**
     *(not Marco Maccaferri — that is a common and incorrect attribution)*
-  - Qt 6 port — **Joseph Kwok (@MustardBun)**, developed with AI assistance
+  - Qt 6 port — **Joseph Kwok (@MustardBun)**
 - **Everything is GPLv3.** New files go under
   `SPDX-License-Identifier: GPL-3.0-or-later`. Do not strip the original upstream
   headers from the engine files.

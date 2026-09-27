@@ -1,0 +1,9 @@
+{
+    "//": "Suggested extensions for building CPMToolsQt6. Nothing here is required to run the packaged build.",
+    "recommendations": [
+        "ms-vscode.cpptools",
+        "ms-vscode.cmake-tools",
+        "twxs.cmake",
+        "ms-vscode.powershell"
+    ]
+}
