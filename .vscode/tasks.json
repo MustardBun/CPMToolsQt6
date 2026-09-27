@@ -1,0 +1,83 @@
+{
+    "version": "2.0.0",
+    "tasks": [
+        {
+            "label": "build (release)",
+            "type": "shell",
+            "command": "D:/msys64/usr/bin/bash.exe",
+            "args": ["./build.sh"],
+            "options": {
+                "cwd": "${workspaceFolder}"
+            },
+            "group": {
+                "kind": "build",
+                "isDefault": true
+            },
+            "problemMatcher": ["$gcc"]
+        },
+        {
+            "label": "build (debug)",
+            "type": "shell",
+            "command": "D:/msys64/usr/bin/bash.exe",
+            "args": ["./build.sh", "Debug"],
+            "options": {
+                "cwd": "${workspaceFolder}"
+            },
+            "problemMatcher": ["$gcc"]
+        },
+        {
+            "label": "run GUI",
+            "type": "shell",
+            "command": "${workspaceFolder}/build/CPMToolsQt6.exe",
+            "dependsOn": ["build (release)"],
+            "problemMatcher": []
+        },
+        {
+            "label": "engine smoke test",
+            "type": "shell",
+            "command": "D:/msys64/usr/bin/bash.exe",
+            "args": ["./scripts/engine-smoke.sh"],
+            "options": {
+                "cwd": "${workspaceFolder}"
+            },
+            "problemMatcher": []
+        },
+        {
+            "label": "release archive (zip)",
+            "type": "shell",
+            "command": "powershell",
+            "args": [
+                "-NoProfile",
+                "-ExecutionPolicy", "Bypass",
+                "-File","./package_release.ps1"
+            ],
+            "options": {
+                "cwd": "${workspaceFolder}"
+            },
+            "dependsOn": ["build (release)"],
+            "group": "build",
+            "problemMatcher": []
+        },
+        {
+            "label": "portable folder only",
+            "type": "shell",
+            "command": "D:/msys64/usr/bin/bash.exe",
+            "args": ["./package.sh"],
+            "options": {
+                "cwd": "${workspaceFolder}"
+            },
+            "group": "build",
+            "problemMatcher": []
+        },
+        {
+            "label": "clean",
+            "type": "shell",
+            "command": "D:/msys64/usr/bin/bash.exe",
+            "args": ["-lc", "rm -rf build dist"],
+            "options": {
+                "cwd": "${workspaceFolder}"
+            },
+            "problemMatcher": []
+        }
+    ]
+}

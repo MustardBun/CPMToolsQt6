@@ -1,0 +1,82 @@
+# ---------------------------------------------------------------------------
+# CPMToolsQt6 - ignore rules
+#
+# Build output and generated files only. The original C++Builder/VCL sources
+# (MdiFrame.*, MkfsUnit.*, AboutDlg.*, CpmtoolsGUI.*, *.dfm) are intentionally
+# NOT ignored: they are kept in the repository for reference.
+# ---------------------------------------------------------------------------
+
+# Build trees
+build/
+build-*/
+dist/
+out/
+CMakeFiles/
+CMakeCache.txt
+cmake_install.cmake
+CPackConfig.cmake
+CPackSourceConfig.cmake
+install_manifest.txt
+compile_commands.json
+
+# Generated Qt sources
+*_autogen/
+moc_*.cpp
+moc_*.h
+qrc_*.cpp
+ui_*.h
+.qmake.stash
+.qmake.cache
+
+# Compiled translation catalogues (the .ts sources are tracked)
+*.qm
+
+# Binaries and objects
+*.exe
+*.dll
+*.so
+*.dylib
+*.a
+*.lib
+*.exp
+*.pdb
+*.ilk
+*.obj
+*.o
+*.lo
+*.la
+*.manifest
+
+# Compiled resources. CpmtoolsGUI.res belongs to the legacy C++Builder project
+# and is tracked, so it is excluded from this rule below.
+*.res
+!CpmtoolsGUI.res
+
+# C++Builder leftovers
+*.tds
+*.dcu
+*.~*
+__history/
+__recovery/
+*.local
+
+# Release archives produced by package_release.ps1 / package.sh
+CPMToolsQt6-*.zip
+
+# Editors and tooling
+.vs/
+.vscode/*
+!.vscode/tasks.json
+!.vscode/launch.json
+!.vscode/c_cpp_properties.json
+!.vscode/extensions.json
+.idea/
+*.swp
+*~
+.cache/
+clangd/
+
+# OS noise
+Thumbs.db
+desktop.ini
+.DS_Store

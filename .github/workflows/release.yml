@@ -1,0 +1,111 @@
+# Builds the Windows release and attaches it to a GitHub release.
+#
+# Triggered by pushing a tag such as v0.1-preview, or run manually from the
+# Actions tab. The portable build (application + bundled Qt runtime) and the
+# combined source archive are produced by the project's own scripts, so CI
+# exercises exactly the same path a developer would.
+name: Release
+
+on:
+  push:
+    tags:
+      - 'v*'
+  workflow_dispatch:
+    inputs:
+      version:
+        description: 'Version tag for the archive names (e.g. v0.1-preview)'
+        required: true
+        default: 'v0.1-preview'
+
+permissions:
+  contents: write
+
+jobs:
+  windows:
+    name: Build Windows release
+    runs-on: windows-latest
+
+    steps:
+      - name: Check out
+        uses: actions/checkout@v4
+
+      - name: Install Qt 6
+        uses: jurplel/install-qt-action@v4
+        with:
+          version: '6.8.0'
+          arch: 'win64_mingw'
+          cache: true
+
+      - name: Install MinGW toolchain and Ninja
+        uses: msys2/setup-msys2@v2
+        with:
+          msystem: UCRT64
+          update: true
+          install: >-
+            mingw-w64-ucrt-x86_64-gcc
+            mingw-w64-ucrt-x86_64-cmake
+            mingw-w64-ucrt-x86_64-ninja
+            mingw-w64-ucrt-x86_64-qt6-base
+            mingw-w64-ucrt-x86_64-qt6-tools
+            mingw-w64-ucrt-x86_64-binutils
+
+      - name: Resolve version tag
+        id: version
+        shell: bash
+        run: |
+          if [ "${{ github.event_name }}" = "workflow_dispatch" ]; then
+            echo "tag=${{ github.event.inputs.version }}" >> "$GITHUB_OUTPUT"
+          else
+            echo "tag=${GITHUB_REF_NAME}" >> "$GITHUB_OUTPUT"
+          fi
+
+      - name: Configure and build
+        shell: msys2 {0}
+        run: |
+          ./build.sh Release clean
+
+      - name: Engine smoke test
+        shell: msys2 {0}
+        run: |
+          ./scripts/engine-smoke.sh
+
+      - name: Verify the build is self-contained
+        shell: pwsh
+        run: |
+          $exe = "build/CPMToolsQt6.exe"
+          if (-not (Test-Path $exe)) { throw "$exe was not produced" }
+
+          # Only the Windows system directories, so a missing bundled DLL fails.
+          $env:PATH = 'C:\Windows\system32;C:\Windows'
+          $p = Start-Process -FilePath $exe -WorkingDirectory build -PassThru
+          Start-Sleep -Seconds 8
+          if ($p.HasExited) { throw "GUI exited early with code $($p.ExitCode)" }
+          Write-Host "GUI started: '$($p.MainWindowTitle)'"
+          $p.Kill()
+
+      - name: Create release archive
+        shell: pwsh
+        run: |
+          ./package_release.ps1 -Version "${{ steps.version.outputs.tag }}"
+
+      - name: List artefacts
+        shell: pwsh
+        run: Get-ChildItem CPMToolsQt6-*.zip | Format-Table Name, Length
+
+      - name: Upload build artefact
+        uses: actions/upload-artifact@v4
+        with:
+          name: CPMToolsQt6-${{ steps.version.outputs.tag }}
+          path: CPMToolsQt6-*.zip
+          if-no-files-found: error
+
+      - name: Publish GitHub release
+        if: startsWith(github.ref, 'refs/tags/')
+        uses: softprops/action-gh-release@v2
+        with:
+          name: CPMToolsQt6 ${{ github.ref_name }}
+          body_path: RELEASE_NOTES.md
+          draft: true
+          prerelease: true
+          files: CPMToolsQt6-*.zip
+          fail_on_unmatched_files: true
