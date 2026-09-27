@@ -86,7 +86,6 @@ $srcTopLevelFiles = @(
     'CHANGELOG.md',
     'RELEASE_NOTES.md',
     'CONTRIBUTING.md',
-    'AGENTS.md',
     'diskdefs',
     'build.sh',
     'package.sh',

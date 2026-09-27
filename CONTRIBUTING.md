@@ -55,25 +55,23 @@ MSYS2 UCRT64:
    guarded, behaviour-preserving changes over rewrites, and keep the original
    C++Builder project buildable.
 
-## House rules
+## Attribution and licence
 
-These come from [AGENTS.md](AGENTS.md) and apply to documentation as much as
-code:
+This project is a derived work, so please keep the credits intact:
 
-- **Do not describe anyone as a "maintainer".** Joseph Kwok is the *author of
-  CPMToolsQt6*; there is no implied commitment to maintain it.
-- **Keep attribution accurate:**
-  - CPMToolsGUI — **neko Java** (the program this is ported from)
-  - cpmtools engine — **Michael Haardt** <michael@moria.de>,
-    primary site <http://www.moria.de/~michael/cpmtools/>
-  - Z80-MBC2 disk definitions — **Just4Fun (Fabio Defabis)**
-    *(not Marco Maccaferri — that is a common and incorrect attribution)*
-  - Qt 6 port — **Joseph Kwok (@MustardBun)**
-- **Everything is GPLv3.** New files go under
-  `SPDX-License-Identifier: GPL-3.0-or-later`. Do not strip the original upstream
-  headers from the engine files.
-- **Never commit build output.** `build/`, `dist/`, `*.exe`, `*.dll`, `*.qm` and
-  release ZIPs are all generated.
+- **CPMToolsGUI** — **neko Java**, the program this is ported from
+- **cpmtools engine** — **Michael Haardt** <michael@moria.de>,
+  primary site <http://www.moria.de/~michael/cpmtools/>
+- **Z80-MBC2 disk definitions** — **Just4Fun (Fabio Defabis)**. Please leave
+  this credit as it is; other names circulating online are incorrect.
+- **Qt 6 port** — **Joseph Kwok (@MustardBun)**
+
+Everything here is **GPLv3**. New files go under
+`SPDX-License-Identifier: GPL-3.0-or-later`, and the original upstream headers
+in the engine files must not be stripped.
+
+Please do not commit generated files — `build/`, `dist/`, `*.exe`, `*.dll`,
+`*.qm` and the release ZIPs are all build output.
 
 ## Translating
 

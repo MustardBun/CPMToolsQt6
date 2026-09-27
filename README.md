@@ -253,7 +253,8 @@ cpmfs.c  cpmcp.c  cpm_test.c  mkfs.cpm.c  device_posix.c   portable C engine
 cpm_test.h  cpmfs.h  mkfs.cpm.h  device.h  CONFIG.H        engine headers
 diskdefs                                                   format definitions
 LICENSE                                                    GPLv3
-AGENTS.md                                                  notes for contributors
+CHANGELOG.md                                               release history
+CONTRIBUTING.md                                            how to report and contribute
 
 qt/                        Qt 6 front end
   main.cpp                 entry point
