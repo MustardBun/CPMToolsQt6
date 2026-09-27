@@ -29,14 +29,10 @@ jobs:
       - name: Check out
         uses: actions/checkout@v4
 
-      - name: Install Qt 6
-        uses: jurplel/install-qt-action@v4
-        with:
-          version: '6.8.0'
-          arch: 'win64_mingw'
-          cache: true
-
-      - name: Install MinGW toolchain and Ninja
+      # Everything comes from MSYS2 UCRT64, including Qt. Installing Qt from a
+      # second source as well risks mixing a Qt built for one toolchain with a
+      # compiler from another, which fails at link or run time.
+      - name: Install MSYS2 UCRT64 toolchain, Qt 6 and Ninja
         uses: msys2/setup-msys2@v2
         with:
           msystem: UCRT64
@@ -75,16 +71,43 @@ jobs:
       - name: Verify the build is self-contained
         shell: pwsh
         run: |
-          $exe = "build/CPMToolsQt6.exe"
+          # Resolve everything to absolute paths. A relative -FilePath combined
+          # with -WorkingDirectory is resolved against the new working directory,
+          # which silently points at the wrong place.
+          $buildDir = (Resolve-Path 'build').Path
+          $exe = Join-Path $buildDir 'CPMToolsQt6.exe'
           if (-not (Test-Path $exe)) { throw "$exe was not produced" }
 
-          # Only the Windows system directories, so a missing bundled DLL fails.
+          # Sanity: the Qt runtime must have been bundled next to the binary.
+          $dlls = @(Get-ChildItem $buildDir -Filter *.dll)
+          Write-Host "Bundled DLLs: $($dlls.Count)"
+          if ($dlls.Count -lt 10) {
+              throw "Only $($dlls.Count) DLLs were bundled - windeployqt did not run."
+          }
+          foreach ($required in 'Qt6Core.dll', 'Qt6Gui.dll', 'Qt6Widgets.dll',
+                                 'libgcc_s_seh-1.dll', 'libstdc++-6.dll') {
+              if (-not (Test-Path (Join-Path $buildDir $required))) {
+                  throw "Required runtime DLL missing: $required"
+              }
+          }
+          if (-not (Test-Path (Join-Path $buildDir 'platforms\qwindows.dll'))) {
+              throw "The Qt platform plugin platforms\qwindows.dll is missing."
+          }
+
+          # Launch with only the Windows system directories on PATH, so a DLL
+          # that was not bundled cannot be picked up from a toolchain folder.
           $env:PATH = 'C:\Windows\system32;C:\Windows'
-          $p = Start-Process -FilePath $exe -WorkingDirectory build -PassThru
-          Start-Sleep -Seconds 8
-          if ($p.HasExited) { throw "GUI exited early with code $($p.ExitCode)" }
-          Write-Host "GUI started: '$($p.MainWindowTitle)'"
+          $p = Start-Process -FilePath $exe -WorkingDirectory $buildDir -PassThru
+          Start-Sleep -Seconds 10
+
+          if ($p.HasExited) {
+              throw "The GUI exited early with code $($p.ExitCode) - a DLL is probably missing."
+          }
+
+          $p.Refresh()
+          Write-Host "GUI started and stayed running: '$($p.MainWindowTitle)'"
           $p.Kill()
+          $p.WaitForExit()
 
       - name: Create release archive
         shell: pwsh
